@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Http, Response, Headers} from "@angular/http";
 import 'rxjs/Rx';
+import {Observable} from "rxjs/Rx";
 
 @Injectable()
 export class HttpService {
@@ -18,7 +19,13 @@ export class HttpService {
       'Content-Type': 'application/json'
     });
     return this.http.post('https://angular2-http-8d852.firebaseio.com/data.json', body, { headers })
-      .map((data: Response) => data.json());
+      .map((data: Response) => data.json())
+      .catch(this.handleError);
+  }
+
+  private handleError(error: any) {
+    console.log(error);
+    return Observable.throw(error.json());
   }
 
   getOwnData() {

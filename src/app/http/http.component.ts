@@ -14,6 +14,7 @@ export class HttpComponent implements OnInit {
   constructor(private httpService: HttpService) { }
 
   items: any[] = [];
+  asyncString = this.httpService.getData();
 
   ngOnInit() {
     this.httpService.getData()
