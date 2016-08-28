@@ -13,6 +13,8 @@ export class HttpComponent implements OnInit {
 
   constructor(private httpService: HttpService) { }
 
+  items: any[] = [];
+
   ngOnInit() {
     this.httpService.getData()
       .subscribe(
@@ -24,6 +26,19 @@ export class HttpComponent implements OnInit {
     this.httpService.sendData({username, email})
       .subscribe(
         data => console.log(data)
+      );
+  }
+
+  onGetData() {
+    this.httpService.getOwnData()
+      .subscribe(
+        (data) => {
+          const myArray = [];
+          for (let key in data) {
+            myArray.push(data[key]);
+          }
+          this.items=myArray;
+        }
       );
   }
 
